@@ -1,18 +1,17 @@
-## Getting Started
+Para solucioná-lo, podemos utilizar semáforos para representar os garfos e controlar o acesso a eles.
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+O algoritmo é composto por várias threads que representam os filósofos. Cada thread passa por várias etapas para garantir que possa comer usando os dois garfos próximos a ela, sem entrar em deadlock (bloqueio de processos) ou causar starvation (inanição de processos) em outras threads.
 
-## Folder Structure
+O processo consiste em inicializar um objeto Semaphore que representa um garfo, definindo que ele tem apenas uma permissão (representando que só pode ser usado por uma pessoa por vez). Também é criado um objeto do tipo Random para gerar números aleatórios.
 
-The workspace contains two folders by default, where:
+Dentro de um loop infinito que simboliza a vida do filósofo, ele começa pensando por um tempo aleatório, utilizando o método sleep() da classe TimeUnit.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+Depois, tenta pegar o garfo à sua direita utilizando o método tryAcquire() do objeto Semaphore que representa o garfo. Se conseguir pegá-lo, passa para a próxima etapa. Caso contrário, volta a pensar.
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+Tenta pegar o garfo à sua esquerda utilizando o mesmo método tryAcquire(). Se conseguir pegá-lo, passa para a próxima etapa. Caso contrário, solta o garfo à sua direita e volta a pensar.
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+Agora que conseguiu obter os dois garfos, come por um tempo aleatório.
 
-## Dependency Management
+Por fim, devolve os garfos, soltando os semáforos correspondentes.
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+Esse processo é repetido enquanto o filósofo estiver vivo. A utilização dos semáforos permite que os filósofos compartilhem os garfos de maneira segura e evita problemas de sincronização de recursos.

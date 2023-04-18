@@ -2,11 +2,11 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 public class JantarDosFilosofos {
-
     private static final int NUM_FILOSOFOS = 5;
     private static final int TEMPO_MAXIMO_ESPERA = 1000;
     private static final int TEMPO_MAXIMO_COMER = 10000;
     private static final Semaphore[] GARFOS = new Semaphore[NUM_FILOSOFOS];
+
 
     public static void main(String[] args) {
         for (int i = 0; i < NUM_FILOSOFOS; i++) {
@@ -53,7 +53,10 @@ public class JantarDosFilosofos {
         private void pensar() {
             System.out.println("Filósofo " + id + " está pensando");
             try {
+                long tempoInicio = System.currentTimeMillis();
                 TimeUnit.MILLISECONDS.sleep((long) (Math.random() * TEMPO_MAXIMO_ESPERA));
+                long tempoPensando = System.currentTimeMillis() - tempoInicio;
+                System.out.println("{Filósofo " + id + " Pensou por "+ tempoPensando+"ms}");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -81,7 +84,10 @@ public class JantarDosFilosofos {
         private void esperar() {
             System.out.println("Filósofo " + id + " está esperando");
             try {
+                long tempoInicio = System.currentTimeMillis();
                 TimeUnit.MILLISECONDS.sleep((long) (Math.random() * TEMPO_MAXIMO_ESPERA));
+                long tempoEsperando = System.currentTimeMillis() - tempoInicio;
+                System.out.println("{Filósofo " + id + " esperou por "+ tempoEsperando+"ms}");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -90,7 +96,10 @@ public class JantarDosFilosofos {
         private void comer() {
             System.out.println("Filósofo " + id + " está comendo");
             try {
+                long tempoInicio = System.currentTimeMillis();
                 TimeUnit.MILLISECONDS.sleep((long) (Math.random() * TEMPO_MAXIMO_COMER));
+                long tempoComendo = System.currentTimeMillis() - tempoInicio;
+                System.out.println("{Filósofo " + id + " comeu por "+ tempoComendo+"ms}");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -104,6 +113,7 @@ public class JantarDosFilosofos {
         }
     }
 }
+
 
 // Eu criei um objeto do tipo Semaphore que representa um garfo, definindo que
 // ele tem apenas.
@@ -120,17 +130,3 @@ public class JantarDosFilosofos {
 // Agora que consegui obter os dois garfos, como por um tempo aleatório.
 // Por fim, devolvo os garfos, soltando os semáforos correspondentes.
 // Esse processo é repetido enquanto eu estiver vivo.
-
-
-
-private void pensar() {
-            System.out.println("Filósofo " + id + " está pensando");
-            try {
-                long tempoInicio = System.currentTimeMillis();
-                TimeUnit.MILLISECONDS.sleep((long) (Math.random() * TEMPO_MAXIMO_ESPERA));
-                tempoPensando += System.currentTimeMillis() - tempoInicio;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-import java.util.concurrent.TimeUnit;

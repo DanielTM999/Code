@@ -120,3 +120,16 @@ public class JantarDosFilosofos {
 // Agora que consegui obter os dois garfos, como por um tempo aleatório.
 // Por fim, devolvo os garfos, soltando os semáforos correspondentes.
 // Esse processo é repetido enquanto eu estiver vivo.
+
+
+
+private void pensar() {
+            System.out.println("Filósofo " + id + " está pensando");
+            try {
+                long tempoInicio = System.currentTimeMillis();
+                TimeUnit.MILLISECONDS.sleep((long) (Math.random() * TEMPO_MAXIMO_ESPERA));
+                tempoPensando += System.currentTimeMillis() - tempoInicio;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
